@@ -36,7 +36,15 @@ try:
     response = ec2.run_instances(**params)
     instance_id = response['Instances'][0]['InstanceId']
     architecture = response['Instances'][0].get('Architecture', 'N/A')
+    publicip = response['Instances'][0].get('PublicIpAddress', 'N/A')
+    privateip = response['Instances'][0].get('PrivateIpAddress', 'N/A')
+    tag_specifications = response['Instances'][0].get('Tags', [])
+    security_groups = response['Instances'][0].get('SecurityGroups', [])
     print(f"EC2 Instance created with ID: {instance_id}")
     print(f"Architecture: {architecture}")
+    print(f"Public IP Address: {publicip}")
+    print(f"Private IP Address: {privateip}")
+    print(f"Tag Specifications: {tag_specifications}")
+    print(f"Security Groups: {security_groups}")
 except Exception as e:
     print(f"Error creating EC2 instance: {e}")
